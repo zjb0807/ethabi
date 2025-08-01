@@ -143,10 +143,9 @@ mod tests {
 						"name":"a",
 						"type":"address"
 					}}],
-					"name":"{}",
+					"name":"{name}",
 					"outputs": []
-				}}"#,
-				name
+				}}"#
 			);
 
 			let deserialized: Operation = serde_json::from_str(&s).unwrap();
@@ -177,11 +176,10 @@ mod tests {
 							"type":"address",
 							"indexed":true
 						}}],
-						"name":"{}",
+						"name":"{name}",
 						"outputs": [],
 						"anonymous": false
-				}}"#,
-				name
+				}}"#
 			);
 
 			let deserialized: Operation = serde_json::from_str(&s).unwrap();
