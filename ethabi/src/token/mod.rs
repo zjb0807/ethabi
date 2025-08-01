@@ -81,7 +81,7 @@ pub trait Tokenizer {
 		let mut last_is_array = false;
 
 		let mut params = param.iter();
-		for (pos, ch) in value.chars().enumerate() {
+		for (pos, ch) in value.char_indices() {
 			match ch {
 				'[' if !ignore => {
 					if array_nested == 0 {
@@ -179,7 +179,7 @@ pub trait Tokenizer {
 		let mut tuple_nested = 0isize;
 		let mut tuple_item_start = 1;
 		let mut last_is_tuple = false;
-		for (i, ch) in value.chars().enumerate() {
+		for (i, ch) in value.char_indices() {
 			match ch {
 				'(' if !ignore => {
 					if tuple_nested == 0 {

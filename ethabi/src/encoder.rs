@@ -14,7 +14,7 @@ use crate::{util::pad_u32, Bytes, Token, Word};
 
 fn pad_bytes_len(bytes: &[u8]) -> u32 {
 	// "+ 1" because len is also appended
-	((bytes.len() + 31) / 32) as u32 + 1
+	bytes.len().div_ceil(32) as u32 + 1
 }
 
 fn pad_bytes_append(data: &mut Vec<Word>, bytes: &[u8]) {
@@ -23,11 +23,11 @@ fn pad_bytes_append(data: &mut Vec<Word>, bytes: &[u8]) {
 }
 
 fn fixed_bytes_len(bytes: &[u8]) -> u32 {
-	((bytes.len() + 31) / 32) as u32
+	bytes.len().div_ceil(32) as u32
 }
 
 fn fixed_bytes_append(result: &mut Vec<Word>, bytes: &[u8]) {
-	let len = (bytes.len() + 31) / 32;
+	let len = bytes.len().div_ceil(32);
 	for i in 0..len {
 		let mut padded = [0u8; 32];
 
@@ -173,7 +173,7 @@ fn encode_token_append(data: &mut Vec<Word>, token: &Token) {
 			}
 			data.push(value);
 		}
-		_ => panic!("Unhandled nested token: {:?}", token),
+		_ => panic!("Unhandled nested token: {token:?}"),
 	};
 }
 
