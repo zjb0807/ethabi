@@ -106,7 +106,7 @@ fn to_syntax_string(param_type: &ethabi::ParamType) -> proc_macro2::TokenStream 
 	}
 }
 
-fn to_ethabi_param_vec<'a, P: 'a>(params: P) -> proc_macro2::TokenStream
+fn to_ethabi_param_vec<'a, P>(params: P) -> proc_macro2::TokenStream
 where
 	P: IntoIterator<Item = &'a Param>,
 {

@@ -93,7 +93,7 @@ fn peek_32_bytes(data: &[u8], offset: usize) -> Result<Word, Error> {
 }
 
 fn round_up_nearest_multiple(value: usize, padding: usize) -> usize {
-	(value + padding - 1) / padding * padding
+	value.div_ceil(padding) * padding
 }
 
 fn take_bytes(data: &[u8], offset: usize, len: usize, validate: bool) -> Result<Vec<u8>, Error> {

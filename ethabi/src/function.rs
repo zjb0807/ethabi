@@ -59,7 +59,7 @@ impl Function {
 
 		let signed = short_signature(&self.name, &params).to_vec();
 		let encoded = encode(tokens);
-		Ok(signed.into_iter().chain(encoded.into_iter()).collect())
+		Ok(signed.into_iter().chain(encoded).collect())
 	}
 
 	/// Return the 4 byte short signature of this function.

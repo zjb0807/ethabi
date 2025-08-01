@@ -51,7 +51,7 @@ impl Error {
 
 		let signed = short_signature(&self.name, &params).to_vec();
 		let encoded = encode(tokens);
-		Ok(signed.into_iter().chain(encoded.into_iter()).collect())
+		Ok(signed.into_iter().chain(encoded).collect())
 	}
 
 	/// Parses the ABI function input to a list of tokens.

@@ -35,7 +35,7 @@ mod tests {
 		let second = [0x22u8; 20];
 
 		let encoded_from_vec = functions::set_validators::encode_input(vec![first, second]);
-		let encoded_from_vec_iter = functions::set_validators::encode_input(vec![first, second].into_iter());
+		let encoded_from_vec_iter = functions::set_validators::encode_input(vec![first, second]);
 		let encoded_from_vec_wrapped = functions::set_validators::encode_input(vec![Wrapper(first), Wrapper(second)]);
 
 		let expected = "9300c9260000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000011111111111111111111111111111111111111110000000000000000000000002222222222222222222222222222222222222222".to_owned();
@@ -70,7 +70,7 @@ mod tests {
 		let second = [0x22u8; 20];
 
 		let encoded_from_vec = constructor(code.clone(), vec![first, second]);
-		let encoded_from_vec_iter = constructor(code.clone(), vec![first, second].into_iter());
+		let encoded_from_vec_iter = constructor(code.clone(), vec![first, second]);
 		let encoded_from_vec_wrapped = constructor(code, vec![Wrapper(first), Wrapper(second)]);
 
 		let expected = "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000011111111111111111111111111111111111111110000000000000000000000002222222222222222222222222222222222222222".to_owned();

@@ -92,7 +92,7 @@ impl Event {
 		let kinds: Vec<_> = self.indexed_params(true).into_iter().map(|param| param.kind).collect();
 		let result = if self.anonymous {
 			TopicFilter {
-				topic0: convert_topic(raw.topic0, kinds.get(0))?,
+				topic0: convert_topic(raw.topic0, kinds.first())?,
 				topic1: convert_topic(raw.topic1, kinds.get(1))?,
 				topic2: convert_topic(raw.topic2, kinds.get(2))?,
 				topic3: Topic::Any,
@@ -100,7 +100,7 @@ impl Event {
 		} else {
 			TopicFilter {
 				topic0: Topic::This(self.signature()),
-				topic1: convert_topic(raw.topic0, kinds.get(0))?,
+				topic1: convert_topic(raw.topic0, kinds.first())?,
 				topic2: convert_topic(raw.topic1, kinds.get(1))?,
 				topic3: convert_topic(raw.topic2, kinds.get(2))?,
 			}
@@ -136,7 +136,7 @@ impl Event {
 			0
 		} else {
 			// verify
-			let event_signature = topics.get(0).ok_or(Error::InvalidData)?;
+			let event_signature = topics.first().ok_or(Error::InvalidData)?;
 			if event_signature != &self.signature() {
 				return Err(Error::InvalidData);
 			}
@@ -155,13 +155,13 @@ impl Event {
 			return Err(Error::InvalidData);
 		}
 
-		let topics_named_tokens = topic_params.into_iter().map(|p| p.name).zip(topic_tokens.into_iter());
+		let topics_named_tokens = topic_params.into_iter().map(|p| p.name).zip(topic_tokens);
 
 		let data_types = data_params.iter().map(|p| p.kind.clone()).collect::<Vec<ParamType>>();
 
 		let data_tokens = decode(&data_types, &data)?;
 
-		let data_named_tokens = data_params.into_iter().map(|p| p.name).zip(data_tokens.into_iter());
+		let data_named_tokens = data_params.into_iter().map(|p| p.name).zip(data_tokens);
 
 		let named_tokens = topics_named_tokens.chain(data_named_tokens).collect::<BTreeMap<String, Token>>();
 
